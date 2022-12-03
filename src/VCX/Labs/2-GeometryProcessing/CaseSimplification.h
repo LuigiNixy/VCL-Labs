@@ -23,13 +23,13 @@ namespace VCX::Labs::GeometryProcessing {
         Viewer                             &  _viewer;
         Engine::Camera                        _camera              { .Eye = glm::vec3(-1, 1, 1) };
         Common::OrbitCameraManager            _cameraManager       { glm::vec3(-1, 1, 1) };
-        std::size_t                           _modelIdx            { 0 };
+        std::size_t                           _modelIdx            { 2 };
         bool                                  _recompute           { true };
         bool                                  _running             { false };
         ModelObject                           _modelObject;
         RenderOptions                         _options;
         bool                                  _distanceThreshold   { false };
-        int                                   _simplificationLevel { 2 };
+        int                                   _simplificationLevel { 1 };
 
         char const *                GetModelName(std::size_t const i) const { return Viewer::ExampleModelNames[std::size_t(_models[i])].c_str(); }
         Engine::SurfaceMesh const & GetModelMesh(std::size_t const i) const { return Viewer::ExampleModelMeshes[std::size_t(_models[i])]; }
