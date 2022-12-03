@@ -97,7 +97,11 @@ $$unit(\text{j >> 2})$$
 
 其中 $unit()$ 表示第几个方向的基矢，$unit(0) = (1, 0, 0)$，$unit(1) = (0, 1, 0)$，$unit(2) = (0, 0, 1)$。第 $j$ 条边的起始点为 
 
+<<<<<<< HEAD
 $$v_0 + dx \cdot (\text{i \& 1}) \cdot unit(\text{((j >> 2) + 1) \% 3}) + dx \cdot (\text{i >> 1 \& 1}) \cdot unit(\text{((j >> 2) + 2) \% 3})$$
+=======
+$$v_0 + dx \cdot (\text{j \& 1}) \cdot unit(\text{((j >> 2) + 1) \% 3}) + dx \cdot (\text{j >> 1 \& 1}) \cdot unit(\text{((j >> 2) + 2) \% 3})$$
+>>>>>>> c1db74a9bd05d4381ce103d6e5f5baffd5222371
 
 这个顺序与表中的顺序对应，比如查询`c_EdgeStateTable`时，`uint32_t e = c_EdgeStateTable[v];` 中 `v` 的第 i 位记录了第 i 个顶点的信息，`e` 的第 j 位记录了第 j 条边的信息。
 
@@ -143,10 +147,19 @@ namespace VCX::Labs::GeometryProcessing {
 对于 `DCEL links` ：
 + `AddFaces(faces)` ：使用网格的面索引初始化
 + `links.GetVertex(idx)` ：根据顶点的索引获取相应的 `Vertex` 数据结构以便进一步查询（这些索引与初始化时绑定的面索引一一对应）
+<<<<<<< HEAD
 + `links.GetFaces()` ：获取所有的面（ `Triangle const *` ），以便进一步查询（这些面的顺序与初始化时传入的一致）
 + `links.GetEdges()` ：获取所有的边（ `HalfEdge const *` ），以便进一步查询
 + `links.IndexOf(face)` ：获取某个面（ `Triangle const *` ）在所有面中的顺序（从0开始计数）
 
+=======
++ `links.GetFaces()` ：获取所有的面（ `std::vector<Triangle>` ），以便进一步查询（这些面的顺序与初始化时传入的一致）
++ `links.GetEdges()` ：获取所有的边（ `std::vector<HalfEdge const *>` ），以便进一步查询
++ `links.IndexOf(face)` ：获取某个面（ `Triangle const *` ）在所有面中的顺序（从0开始计数）
+
+（注：对于 `links.GetFaces()` ，返回的数据结构是常量引用，不能直接迭代遍历。推荐采用 `for (auto const &f : links.GetFaces())` 方式遍历。）
+
+>>>>>>> c1db74a9bd05d4381ce103d6e5f5baffd5222371
 对于 `DCEL::Vertex v` ：
 + `v.IsSide()` ：是否是边界上的点
 + `v.GetSideNeighbors()` ：如果是边界点，这个方法返回它邻居顶点中，其他两个边界点的索引
@@ -155,7 +168,11 @@ namespace VCX::Labs::GeometryProcessing {
 + `v.GetFaces()` ：返回所有相邻的面
 
 对于 `DCEL::Triangle const * f` ：
+<<<<<<< HEAD
 + `f->Indices(i)` ：返回第 `i` 个顶点的索引（`i`=0,1,2），这里的顶点顺序和初始化时传入的一致
+=======
++ `*f->Indices(i)` ：返回第 `i` 个顶点的索引（`i`=0,1,2），这里的顶点顺序和初始化时传入的一致
+>>>>>>> c1db74a9bd05d4381ce103d6e5f5baffd5222371
 + `f->Edges(i)` ：返回第 `i` 条边的半边结构（`i`=0,1,2），保证顶点 `i` 的对边就是边 `i`
 + `f->OppositeFace(i)` ：返回一个相邻的面，这个面与面 `f` 的共边就是边 `i`（请先检查这个面存在）
 + `f->HasOppositeFace(i)` ：检查一个相邻的面是否存在，这个面与面 `f` 的共边就是边 `i`
